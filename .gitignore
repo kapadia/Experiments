@@ -1,0 +1,5 @@
+.DS_Store
+*.fits
+*.fz
+*.jpg
+node_modules/

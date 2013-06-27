@@ -1,0 +1,15 @@
+{
+  "name": "collaborate",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "dependencies": {
+    "peer": "~0.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "~0.7.8",
+    "coffee-script": "~1.6.3"
+  }
+}

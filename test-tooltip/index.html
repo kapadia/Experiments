@@ -1,0 +1,72 @@
+<html>
+<head>
+  <title>CSS Tool Tip</title>
+  
+  <style>
+    
+    body {
+      margin: 0 auto;
+      padding: 20px 40px;
+    }
+    
+    h4 {
+      font-size: 18px;
+      font-family: Helvetica, sans-serif;
+      line-height: 30px;
+    }
+    
+    p {
+      line-height: 0;
+    }
+    
+    .container {
+      position: relative;
+      border: 1px solid red;
+    }
+    
+    .container:hover .tooltip {
+      display: block;
+    }
+    
+    .tooltip {
+      display: none;
+      background-color: #202020;
+      color: #FAFAFA;
+      position: absolute;
+      left: 45%;
+      top: 100%;
+      padding: 8px 4px;
+      text-align: center;
+      opacity: 0.9;
+      border-radius: 2px;
+      font-family: helvetica neue, sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    
+    .tooltip:before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 42.5%;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #202020;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>Tooltip</h4>
+  
+  <div class='container'>
+    <div class='content'><p>This is some content.  It might be confusing, so a tool tip will help.</p></div>
+    <span class='tooltip'>Here's a brief description.</span>
+  </div>
+  
+</body>
+
+</html>

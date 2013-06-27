@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>CSS Tool Tip</title>
+  
+  <style>
+    
+    body {
+      margin: 0 auto;
+      padding: 20px 40px;
+    }
+    
+    h4 {
+      font-size: 18px;
+      font-family: Helvetica, sans-serif;
+      line-height: 30px;
+    }
+    
+    p {
+      line-height: 0;
+    }
+    
+    .container {
+      position: relative;
+      border: 1px solid red;
+      transition: all 200;
+      width: 200px;
+      height: 20px;
+      overflow: hidden;
+    }
+    
+    .container:hover {
+      height: 200px;
+      width: 400px;
+    }
+    
+    .options {
+      position: absolute;
+    }
+    
+    
+  </style>
+</head>
+
+<body>
+  <h4>Hover Select</h4>
+  
+  <div class='container'>
+    <div class='hover-select'>Hover here to see more.</div>
+    <div class='options'>
+      <ul>
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+        <li>Option 4</li>
+      </ul>
+    </div>
+  </div>
+  
+</body>
+
+</html>

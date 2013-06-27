@@ -1,0 +1,64 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>WebGL Volumetric Rendering</title>
+  
+  <script type='text/javascript' src='lib/gl-matrix.js'></script>
+  <script type='text/javascript' src='lib/fits.js'></script>
+  <script type='text/javascript' src='lib/main.js'></script>
+  
+  <script id="shader-fs" type="x-shader/x-fragment">
+      precision mediump float;
+      
+      varying vec2 vTextureCoord;
+      uniform sampler2D uSampler;
+      
+      void main(void) {
+          vec4 pixel_v = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+          
+          float min = -0.7805077433586121;
+          float max = 4.002336502075195;
+          
+          float pixel = 1.5 * (pixel_v[0] - min) / (max - min);
+          gl_FragColor = vec4(pixel, pixel, pixel, 1);
+      }
+  </script>
+  
+  <script id="shader-vs" type="x-shader/x-vertex">
+      attribute vec3 aVertexPosition;
+      attribute vec2 aTextureCoord;
+      
+      uniform mat4 uMVMatrix;
+      uniform mat4 uPMatrix;
+      
+      varying vec2 vTextureCoord;
+      
+      void main(void) {
+          float width = 106.0;
+          float height = 106.0;
+          float depth = 601.0;
+          
+          float yt = 2.0 * aVertexPosition[1] - 0.5;
+          
+          gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition[0] - 0.5, yt, 0.0, 1.0);
+          // gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+          
+          vTextureCoord = aTextureCoord;
+      }
+  </script>
+  
+  <style>
+    
+    #volumetric {
+      border: 1px solid red;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <h4>WebGL Volumetric Rendering</h4>
+  <canvas id='volumetric' width='400px' height='400px'></canvas>
+</body>
+
+</html>
