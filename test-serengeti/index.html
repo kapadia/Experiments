@@ -1,0 +1,271 @@
+<html>
+
+<head>
+  <title>Serengeti Subject Viewer</title>
+  <script src="lib/jquery.js"></script>
+  <script src="lib/main.js"></script>
+  <link rel="stylesheet" href="lib/main.css" type="text/css" charset="utf-8">
+</head>
+
+<body>
+  
+  <select data-filter="species">
+    <option value=''>--------</option>
+    <option>aardvark</option>
+    <option>aardwolf</option>
+    <option>baboon</option>
+    <option>batEaredFox</option>
+    <option>otherBird</option>
+    <option>buffalo</option>
+    <option>bushbuck</option>
+    <option>caracal</option>
+    <option>cheetah</option>
+    <option>civet</option>
+    <option>dikDik</option>
+    <option>eland</option>
+    <option>elephant</option>
+    <option>gazelleGrants</option>
+    <option>gazelleThomsons</option>
+    <option>genet</option>
+    <option>giraffe</option>
+    <option>guineaFowl</option>
+    <option>hare</option>
+    <option>hartebeest</option>
+    <option>hippopotamus</option>
+    <option>honeyBadger</option>
+    <option>hyenaSpotted</option>
+    <option>hyenaStriped</option>
+    <option>impala</option>
+    <option>jackal</option>
+    <option>koriBustard</option>
+    <option>leopard</option>
+    <option>lionFemale</option>
+    <option>lionMale</option>
+    <option>mongoose</option>
+    <option>ostrich</option>
+    <option>porcupine</option>
+    <option>reedbuck</option>
+    <option>reptiles</option>
+    <option>rhinoceros</option>
+    <option>rodents</option>
+    <option>secretaryBird</option>
+    <option>serval</option>
+    <option>topi</option>
+    <option>vervetMonkey</option>
+    <option>warthog</option>
+    <option>waterbuck</option>
+    <option>wildcat</option>
+    <option>wildebeest</option>
+    <option>zebra</option>
+    <option>zorilla</option>
+    <option>human</option>
+  </select>
+  
+  <select data-filter="site">
+    <option value=''>--------</option>
+    <option>B04</option>
+    <option>B05</option>
+    <option>B06</option>
+    <option>B07</option>
+    <option>B08</option>
+    <option>C03</option>
+    <option>C04</option>
+    <option>C05</option>
+    <option>C06</option>
+    <option>C07</option>
+    <option>C08</option>
+    <option>C09</option>
+    <option>C10</option>
+    <option>C11</option>
+    <option>D02</option>
+    <option>D03</option>
+    <option>D04</option>
+    <option>D05</option>
+    <option>D06</option>
+    <option>D07</option>
+    <option>D08</option>
+    <option>D09</option>
+    <option>D10</option>
+    <option>D11</option>
+    <option>D12</option>
+    <option>D13</option>
+    <option>E01</option>
+    <option>E02</option>
+    <option>E03</option>
+    <option>E04</option>
+    <option>E05</option>
+    <option>E06</option>
+    <option>E07</option>
+    <option>E08</option>
+    <option>E09</option>
+    <option>E10</option>
+    <option>E11</option>
+    <option>E12</option>
+    <option>E13</option>
+    <option>F01</option>
+    <option>F02</option>
+    <option>F03</option>
+    <option>F04</option>
+    <option>F05</option>
+    <option>F06</option>
+    <option>F07</option>
+    <option>F08</option>
+    <option>F09</option>
+    <option>F10</option>
+    <option>F11</option>
+    <option>F12</option>
+    <option>F13</option>
+    <option>G01</option>
+    <option>G02</option>
+    <option>G03</option>
+    <option>G04</option>
+    <option>G05</option>
+    <option>G06</option>
+    <option>G07</option>
+    <option>G08</option>
+    <option>G09</option>
+    <option>G10</option>
+    <option>G11</option>
+    <option>G12</option>
+    <option>G13</option>
+    <option>H01</option>
+    <option>H02</option>
+    <option>H03</option>
+    <option>H04</option>
+    <option>H05</option>
+    <option>H06</option>
+    <option>H07</option>
+    <option>H08</option>
+    <option>H09</option>
+    <option>H10</option>
+    <option>H11</option>
+    <option>H12</option>
+    <option>I02</option>
+    <option>I03</option>
+    <option>I04</option>
+    <option>I05</option>
+    <option>I06</option>
+    <option>I07</option>
+    <option>I08</option>
+    <option>I09</option>
+    <option>I10</option>
+    <option>I11</option>
+    <option>I12</option>
+    <option>I13</option>
+    <option>J03</option>
+    <option>J04</option>
+    <option>J05</option>
+    <option>J06</option>
+    <option>J07</option>
+    <option>J08</option>
+    <option>J09</option>
+    <option>J10</option>
+    <option>J11</option>
+    <option>J12</option>
+    <option>J13</option>
+    <option>K03</option>
+    <option>K04</option>
+    <option>K05</option>
+    <option>K06</option>
+    <option>K07</option>
+    <option>K08</option>
+    <option>K09</option>
+    <option>K10</option>
+    <option>K11</option>
+    <option>K12</option>
+    <option>K13</option>
+    <option>L03</option>
+    <option>L04</option>
+    <option>L05</option>
+    <option>L06</option>
+    <option>L07</option>
+    <option>L08</option>
+    <option>L09</option>
+    <option>L10</option>
+    <option>L12</option>
+    <option>L13</option>
+    <option>M04</option>
+    <option>M05</option>
+    <option>M06</option>
+    <option>M07</option>
+    <option>M08</option>
+    <option>M09</option>
+    <option>M10</option>
+    <option>M11</option>
+    <option>M12</option>
+    <option>M13</option>
+    <option>N04</option>
+    <option>N05</option>
+    <option>N06</option>
+    <option>N08</option>
+    <option>N09</option>
+    <option>N10</option>
+    <option>N11</option>
+    <option>N12</option>
+    <option>O05</option>
+    <option>O06</option>
+    <option>O07</option>
+    <option>O08</option>
+    <option>O09</option>
+    <option>O10</option>
+    <option>O11</option>
+    <option>O12</option>
+    <option>P06</option>
+    <option>P07</option>
+    <option>P08</option>
+    <option>P09</option>
+    <option>P10</option>
+    <option>P11</option>
+    <option>P13</option>
+    <option>Q07</option>
+    <option>Q08</option>
+    <option>Q09</option>
+    <option>Q10</option>
+    <option>Q11</option>
+    <option>Q12</option>
+    <option>Q13</option>
+    <option>R07</option>
+    <option>R08</option>
+    <option>R09</option>
+    <option>R10</option>
+    <option>R11</option>
+    <option>R12</option>
+    <option>S08</option>
+    <option>S09</option>
+    <option>S10</option>
+    <option>S11</option>
+    <option>S12</option>
+    <option>S13</option>
+    <option>T09</option>
+    <option>T10</option>
+    <option>T11</option>
+    <option>T12</option>
+    <option>T13</option>
+    <option>U09</option>
+    <option>U10</option>
+    <option>U11</option>
+    <option>U12</option>
+    <option>U13</option>
+    <option>V10</option>
+    <option>V11</option>
+    <option>V12</option>
+    <option>V13</option>
+  </select>
+  
+  <div class='viewer'>
+    <canvas id='flipbook' width='600' height='421'></canvas>
+    <div class='progress'></div>
+  </div>
+  
+  <div class='images'></div>
+  <button class='prev'>Prev</button>
+  <button class='next'>Next</button>
+  <button class='play'>Play</button>
+  <button class='pause'>Pause</button>
+  <button class='reset'>Reset</button>
+  
+  <p class='info'></p>
+  <p class='site-code'></p>
+</body>
+
+</html>

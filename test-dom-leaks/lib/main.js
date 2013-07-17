@@ -6,17 +6,10 @@
     var button;
     button = document.querySelector('button');
     return button.onclick = function(e) {
-      var canvas, canvases, i, _i, _j, _len, _results;
-      for (i = _i = 0; _i <= 99; i = ++_i) {
-        canvas = document.createElement('canvas');
-        document.body.appendChild(canvas);
-        canvas = null;
-      }
-      canvases = document.querySelectorAll('canvas');
+      var canvas, i, _i, _results;
       _results = [];
-      for (_j = 0, _len = canvases.length; _j < _len; _j++) {
-        canvas = canvases[_j];
-        _results.push(document.body.removeChild(canvas));
+      for (i = _i = 0; _i <= 99; i = ++_i) {
+        _results.push(canvas = document.createElement('canvas'));
       }
       return _results;
     };
