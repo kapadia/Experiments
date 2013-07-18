@@ -4,3 +4,6 @@
 *.jpg
 node_modules/
 *.map
+*.fit.gz
+*.tab
+*.tmp

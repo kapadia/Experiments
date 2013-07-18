@@ -5,7 +5,6 @@ connectToPeer = (peerId) ->
   console.log 'connectToPeer', peerId
   
   remotePeer = new Peer({host: 'localhost', port: 9000})
-  # remotePeer = new Peer({key: 'wfueqmp6rb18xgvi'})
   c = remotePeer.connect(peerId, {reliable: true})
   
   # Initialize a FITS file
@@ -97,5 +96,6 @@ DOMReady = ->
   
   button = document.querySelector("button[name='connect-to-peer']")
   button.onclick = requestPeerId
+
 
 window.addEventListener('DOMContentLoaded', DOMReady, false)
