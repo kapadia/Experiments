@@ -30,7 +30,7 @@
 
   console.log("Peer server listening on port " + PEERPORT);
 
-  app.use(express["static"]("" + __dirname + "/../../"));
+  app.use(express["static"]("" + __dirname + "/../"));
 
   io.sockets.on('connection', function(socket) {
     return console.log('CONNECTION', socket);

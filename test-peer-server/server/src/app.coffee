@@ -20,7 +20,7 @@ console.log "Express server listening on port #{PORT}"
 console.log "Peer server listening on port #{PEERPORT}"
 
 # Serve static content
-app.use( express.static("#{__dirname}/../../") )
+app.use( express.static("#{__dirname}/../") )
 
 io.sockets.on('connection', (socket) ->
   console.log 'CONNECTION', socket
