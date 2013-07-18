@@ -3,3 +3,4 @@
 *.fz
 *.jpg
 node_modules/
+*.map

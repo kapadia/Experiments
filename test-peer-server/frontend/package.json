@@ -1,9 +1,0 @@
-{
-  "name": "Collaborate",
-  "version": "0.0.1",
-  "dependencies": {
-    "coffee-script": "*",
-    "stylus": "*",
-    "http-server": "*"
-  }
-}

@@ -1,0 +1,25 @@
+{print} = require 'util'
+{spawn} = require 'child_process'
+
+task 'build', 'Build lib/ from src/', ->
+  coffee = spawn 'coffee', ['-c', '-o', 'lib', 'src']
+  stylus = spawn 'stylus', ['-c', '-o', 'lib', 'src']
+  
+  coffee.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  coffee.stdout.on 'data', (data) ->
+    print data.toString()
+  coffee.on 'exit', (code) ->
+    callback?() if code is 0
+
+task 'server', 'Watch src/ for changes', ->
+  coffee1 = spawn 'node_modules/.bin/coffee', ['-w', '-c', '-o', 'lib', 'src']
+  coffee2 = spawn 'node_modules/.bin/coffee', ['-w', '-c', '-o', 'server/', 'server/src']
+  stylus = spawn 'node_modules/.bin/stylus', ['-w', '-c', '-o', 'lib', 'src']
+  nodemon = spawn 'node_modules/.bin/nodemon', ['server/app.js']
+  
+  for p in [coffee1, coffee2, stylus, nodemon]
+    p.stderr.on 'data', (data) ->
+      process.stderr.write data.toString()
+    p.stdout.on 'data', (data) ->
+      print data.toString()

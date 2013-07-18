@@ -30,12 +30,10 @@
   peerId = null;
 
   createSocketConnection = function() {
-    socket = io.connect('0.0.0.0', {
-      port: 5000
-    });
-    console.log(socket);
+    socket = io.connect();
     return socket.on('status', function(e) {
       if (e.status === true) {
+        alert('hey hey hey');
         socket.on('requestPeerId', function(sessionId) {
           console.log('requestPeerId');
           if (socket.socket.sessionid !== sessionId) {
@@ -89,7 +87,6 @@
 
   DOMReady = function() {
     var button;
-    console.log('DOMContentLoaded');
     createSocketConnection();
     createPeerConnection();
     button = document.querySelector("button[name='connect-to-peer']");

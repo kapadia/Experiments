@@ -1,0 +1,18 @@
+{
+  "name": "collaborate",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "cake server"
+  },
+  "dependencies": {
+    "peer": "0.2.x",
+    "socket.io": "0.9.x",
+    "express": "3.3.x"
+  },
+  "devDependencies": {
+    "nodemon": "0.7.x",
+    "coffee-script": "1.6.x",
+    "stylus": "0.34.x"
+  }
+}

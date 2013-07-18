@@ -29,13 +29,11 @@ connectToPeer = (peerId) ->
 socket = null
 peerId = null
 createSocketConnection = ->
-  # socket = io.connect('ws://ec2-50-17-0-195.compute-1.amazonaws.com/', {port: 80})
-  socket = io.connect('0.0.0.0', {port: 5000})
-  console.log socket
+  socket = io.connect()
   
   socket.on('status', (e) ->
     if e.status is true
-      
+      alert 'hey hey hey'
       # Define callback for peer id event
       socket.on('requestPeerId', (sessionId) ->
         console.log 'requestPeerId'
@@ -94,7 +92,6 @@ requestPeerId = (e) ->
 
 
 DOMReady = ->
-  console.log 'DOMContentLoaded'
   createSocketConnection()
   createPeerConnection()
   
