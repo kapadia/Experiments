@@ -34,6 +34,15 @@ def montage_make_cutout(ra, dec, infile, outfile)
   `rm #{outfile}_area.fits`
 end
 
+def montage_subimage(ra, dec, infile, outfile)
+  arcsec_per_pixel = 0.15
+  dimension = 424
+  fov_arcsec = arcsec_per_pixel * dimension
+  fov_degrees = "%0.11f" % (fov_arcsec / 3600.0)
+  
+  `mSubimage #{infile} #{outfile}.fits #{ra} #{dec} #{fov_degrees} #{fov_degrees}`
+end
+
 # Get SDSS object ids
 objids = File.read("data/control.tab").split("\n").collect{ |row| row.split(/\s+/)[0] }
 objids.concat File.read("data/sample.tab").split("\n").collect{ |row| row.split(/\s+/)[0] }
@@ -57,7 +66,7 @@ while objids.count > 0
       outfile = File::join('cutouts', "#{objid}_#{band}")
       
       `curl -o #{infile} '#{url}'` unless File.exists?(infile)
-      montage_make_cutout(ra, dec, infile, outfile) unless File.exists?(outfile)
+      montage_subimage(ra, dec, infile, outfile) unless File.exists?("#{outfile}.fits")
     end
   end
 
