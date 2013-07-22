@@ -114,7 +114,6 @@ createRoom = (e) ->
 setSocketCallbacks = (socket) ->
   
   socket.on('set-room-count', (e) ->
-    console.log "e.rooms", e.rooms
     
     template = ""
     for room, count of e.roomCounts
@@ -123,10 +122,8 @@ setSocketCallbacks = (socket) ->
         <div class='row'>
           <span class='key'>#{name}</span>
           <span class='value'>#{count}</span>
+        </div>
         """
-      unless e.rooms[room]?
-        template += "<button class='join' data-room='#{name}'>Join</button>"
-      template += "</div>"
     roomTableEl.html(template)
   )
   

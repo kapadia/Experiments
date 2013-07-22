@@ -104,17 +104,12 @@
   setSocketCallbacks = function(socket) {
     socket.on('set-room-count', function(e) {
       var count, name, room, template, _ref;
-      console.log("e.rooms", e.rooms);
       template = "";
       _ref = e.roomCounts;
       for (room in _ref) {
         count = _ref[room];
         name = room === '' ? 'Default' : room;
-        template += "<div class='row'>\n  <span class='key'>" + name + "</span>\n  <span class='value'>" + count + "</span>";
-        if (e.rooms[room] == null) {
-          template += "<button class='join' data-room='" + name + "'>Join</button>";
-        }
-        template += "</div>";
+        template += "<div class='row'>\n  <span class='key'>" + name + "</span>\n  <span class='value'>" + count + "</span>\n</div>";
       }
       return roomTableEl.html(template);
     });

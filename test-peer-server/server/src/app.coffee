@@ -34,7 +34,6 @@ getRoomCounts = (io, socket) ->
       counts[k] = v.length
     io.sockets.emit 'set-room-count',
       roomCounts: counts
-      rooms: rooms
   )
 
 io.sockets.on('connection', (socket) ->

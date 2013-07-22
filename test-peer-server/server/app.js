@@ -46,8 +46,7 @@
         counts[k] = v.length;
       }
       return io.sockets.emit('set-room-count', {
-        roomCounts: counts,
-        rooms: rooms
+        roomCounts: counts
       });
     }));
   };
