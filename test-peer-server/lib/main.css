@@ -1,0 +1,14 @@
+html,body{margin:0;padding:0;background-color:#fafafa;color:#333332}
+header{margin:2% 4%;border-bottom:1px solid #505050;height:30px;}
+header h6{height:20px;float:left;padding:0;margin:0}
+header p.status{height:20px;float:right;padding:0;margin:0}
+article{display:none;margin:2% 4%;}
+article.active{display:block}
+div.prompt{display:none;z-index:1;position:fixed;top:0;left:0;right:0;bottom:0;background-color:#333332;opacity:.6;padding:20% 40%;}
+div.prompt.active{display:block}
+div.rooms{margin-top:20px;}
+div.rooms .table{display:block;}
+div.rooms .table .row{display:table-row;}
+div.rooms .table .row span,div.rooms .table .row button{display:table-cell;margin-bottom:8px}
+div.rooms .table .row span.key{text-align:right;font-weight:700;padding-right:20px}
+div.rooms .table .row span.value{text-align:left;font-weight:200;padding-right:20px}

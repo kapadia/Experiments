@@ -1,0 +1,68 @@
+
+html, body
+  margin 0
+  padding 0
+  background-color #FAFAFA
+  color #333332
+
+header
+  margin 2% 4%
+  border-bottom 1px solid #505050
+  height 30px
+  
+  h6
+    height 20px
+    float left
+    padding 0
+    margin 0
+  
+  p.status
+    height 20px
+    float right
+    padding 0
+    margin 0
+
+article
+  display none
+  margin 2% 4%
+  
+  &.active
+    display block
+
+div.prompt
+  display none
+  z-index 1
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background-color #333332
+  opacity 0.6
+  padding 20% 40%
+  
+  &.active
+    display block
+
+div.rooms
+  margin-top 20px
+  
+  .table
+    display block
+    
+    .row
+      display table-row
+      
+      span, button
+        display table-cell
+        margin-bottom 8px
+      span.key
+        text-align right
+        font-weight 700
+        padding-right 20px
+      span.value
+        text-align left
+        font-weight 200
+        padding-right 20px
+    
+  

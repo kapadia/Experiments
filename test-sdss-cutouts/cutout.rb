@@ -31,7 +31,11 @@ objids.shift()
 
 while objids.count > 0
   
-  query = "SELECT objid, run, rerun, camcol, field, ra, dec FROM galaxy WHERE objid in (#{objids.shift(10).join(',')})"
+  # Check if metadata has been requested from CAS
+  ids = objids.shift(10)
+  next if File.exists?(File::join('cutouts', "#{ids.last}_z.fits"))
+  
+  query = "SELECT objid, run, rerun, camcol, field, ra, dec FROM galaxy WHERE objid in (#{ids.join(',')})"
   query_url = URI::encode("http://cas.sdss.org/dr7/en/tools/search/x_sql.asp?format=csv&cmd=#{query}")
   
   data = open(query_url).read().split("\n").collect{ |row| row.split(',')}

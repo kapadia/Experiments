@@ -4,6 +4,6 @@
 *.jpg
 node_modules/
 *.map
-*.fit.gz
+test-sdss-cutouts/FITS/*
 *.tab
 *.tmp
