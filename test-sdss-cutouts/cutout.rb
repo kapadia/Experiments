@@ -54,8 +54,6 @@ while objids.count > 0
   data = open(query_url).read().split("\n").collect{ |row| row.split(',')}
   data.shift()
   
-  puts query_url
-  puts "data.count = #{data.count}"
   data.each do |row|
     objid, run, rerun, camcol, field, ra, dec = row
     
