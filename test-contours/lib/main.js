@@ -4,7 +4,7 @@
 
   fragmentShaderSrc = "precision mediump float;\n\nvoid main(void) {\n    gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n}";
 
-  vertexShaderSrc = "attribute vec3 aVertexPosition;\n\nuniform mat4 uMVMatrix;\nuniform mat4 uPMatrix;\n\nvoid main(void) {\n    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);\n}";
+  vertexShaderSrc = "attribute vec3 aVertexPosition;\n\nuniform mat4 uMVMatrix;\nuniform mat4 uPMatrix;\n\nvoid main(void) {\n    gl_PointSize = 1.25;\n    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);\n}";
 
   gl = null;
 
@@ -196,7 +196,7 @@
         webfits.loadImage('radio', arr, width, height);
         webfits.setExtent(min, max);
         webfits.setImage('radio');
-        webfits.setColorMap('binary');
+        webfits.setColorMap('gist_heat');
         buttonEl.on('click', {
           arr: arr,
           min: min,

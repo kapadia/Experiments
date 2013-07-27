@@ -15,6 +15,7 @@ vertexShaderSrc = """
   uniform mat4 uPMatrix;
   
   void main(void) {
+      gl_PointSize = 1.25;
       gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
   }
 """
@@ -171,7 +172,6 @@ drawContours = (c, width, height) ->
   
   gl.bindBuffer(gl.ARRAY_BUFFER, contourBuffer)
   gl.vertexAttribPointer(program.vertexPositionAttribute, contourBuffer.itemSize, gl.FLOAT, false, 0, 0)
-  
   gl.drawArrays(gl.POINTS, 0, contourBuffer.numItems)
 
 
@@ -237,7 +237,7 @@ domReady = ->
       webfits.loadImage('radio', arr, width, height)
       webfits.setExtent(min, max)
       webfits.setImage('radio')
-      webfits.setColorMap('binary')
+      webfits.setColorMap('gist_heat')
       
       # Pass array and precomputed extent
       buttonEl.on('click', {arr: arr, min: min, max: max, width: width, height: height}, getContours)
