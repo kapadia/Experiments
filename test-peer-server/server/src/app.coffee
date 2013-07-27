@@ -36,24 +36,44 @@ getRoomCounts = (io, socket) ->
       roomCounts: counts
   )
 
+getRoomCount = (io, socket, room) ->
+  setImmediate ( ->
+    attendees = io.sockets.clients(room)
+    attendees = attendees.map( (attendee) -> return attendee.id )
+    io.sockets.emit "set-room-attendence", attendees
+  )
+
 io.sockets.on('connection', (socket) ->
   
-  # Socket disconnect event
   socket.on('disconnect', ->
-    # Broadcast updated room counts
     getRoomCounts(io, socket)
+    
+    rooms = io.sockets.manager.roomClients[socket.id]
+    for room, state of rooms
+      room = room.slice(1)
+      getRoomCount(io, socket, room)
   )
   
-  # Emit status on successful connection for client
-  socket.emit "status",
-    status: true
-  getRoomCounts(io, socket)
-  
-  # Listen for messages from client
   socket.on('create-room', (name) ->
-    
-    # Check if room name exists
     socket.join(name)
     getRoomCounts(io, socket)
   )
+  
+  socket.on('get-room-attendence', (room) ->
+    setImmediate ( ->
+      attendees = io.sockets.clients(room)
+      attendees = attendees.map( (attendee) -> return attendee.id )
+      io.sockets.emit "set-room-attendence", attendees
+    )
+  )
+  
+  socket.on('join-room', (room) ->
+    socket.join(room)
+    getRoomCounts(io, socket)
+    
+    socket.emit 'joined-room', room
+  )
+  
+  socket.emit "status", socket.id
+  getRoomCounts(io, socket)
 )

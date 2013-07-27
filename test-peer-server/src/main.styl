@@ -16,6 +16,11 @@ header
     padding 0
     margin 0
   
+  p.socket-id
+    clear both
+    float right
+    padding-top 20px
+    
   p.status
     height 20px
     float right
@@ -25,24 +30,22 @@ header
 article
   display none
   margin 2% 4%
+  clear both
   
   &.active
     display block
 
-div.prompt
-  display none
+article[data-state='create-room']
   z-index 1
   position fixed
+  margin 0
   top 0
   left 0
   right 0
   bottom 0
   background-color #333332
   opacity 0.6
-  padding 20% 40%
-  
-  &.active
-    display block
+  padding 25% 40%
 
 div.rooms
   margin-top 20px
@@ -64,5 +67,10 @@ div.rooms
         text-align left
         font-weight 200
         padding-right 20px
+      span.join
+        cursor pointer
+        
+        &:hover
+          color #CD3E20
     
   

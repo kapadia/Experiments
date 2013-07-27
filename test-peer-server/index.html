@@ -4,20 +4,10 @@
   
   <title>Sharing Uint8Array</title>
   
+  <script type='text/javascript' src='lib/jquery-2.0.3.js'></script>
   <script type='text/javascript' src="/socket.io/socket.io.js"></script>
   <script type='text/javascript' src='lib/peer.js'></script>
   <script type='text/javascript' src='lib/fits.js'></script>
-  
-  <script type='text/javascript' src='lib/gzip.js'></script>
-  <script type='text/javascript' src='lib/gunzip.js'></script>
-  
-  <script type='text/javascript' src='lib/jquery-2.0.3.js'></script>
-  
-  <!--
-  <script type='text/javascript' src='lib/crossfilter-1.2.0.js'></script>
-  <script type='text/javascript' src='lib/d3-3.1.10.js'></script>
-  <script type='text/javascript' src='lib/vega-1.3.0.js'></script>
-  -->
    
   <script type='text/javascript' src='lib/main.js'></script>
   
@@ -32,38 +22,35 @@
   
   <header>
     <h6>Testing Socket.IO &amp; PeerJS</h6>
-    
     <p class='status'>Socket Not Connected</p>
+    <p class='socket-id'></p>
   </header>
   
-  <div class='prompt'>
-    <input type='text' name='create-room'>
-    <br>
-    <input type="submit" name='create-room-submit' value="Create Room">
-  </div>
-  
   <article class='active' data-state='initial'>
+    <h4>Initial State</h4>
     <p>Waiting for socket connection from server.</p>
   </article>
   
-  <article data-state='create-view'>
-    <h4>Initial State</h4>
+  <article data-state='create-join'>
+    <h4>Create Join State</h4>
     <button name='create-room'>Create Room</button>
     
     <div class='rooms'>
       <h5>Rooms</h5>
       <div class='table'></div>
     </div>
-  </archive>
-  
-  <article data-state='create-room'>
-    <h4>Create Room</h4>
   </article>
   
-  <article data-state='view-rooms'>
-    <h4>View Rooms</h4>
+  <article data-state='create-room'>
+    <input type='text' name='create-room'>
+    <br>
+    <input type='submit' name='create-room-submit' value="Create Room">
+  </article>
+  
+  <article data-state='in-room'>
+    <h4 class='room-name'>Inside Room</h4>
+    <ul class='attendees'></ul>
   </article>
   
 </body>
-
 </html>

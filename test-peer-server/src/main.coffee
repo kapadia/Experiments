@@ -1,6 +1,4 @@
 
-# SocketIO used to pass Peer Id
-
 connectToPeer = (peerId) ->
   console.log 'connectToPeer', peerId
   
@@ -90,24 +88,25 @@ requestPeerId = (e) ->
   socket.emit('requestPeerId', socket.socket.sessionid)
 
 
+joinedRoom = (name, socket) ->
+  socket.emit('get-room-attendence', name)
+  
+
 createRoom = (e) ->
-  console.log 'createRoom'
   socket = e.data.socket
+  el = stateElems['create-room']
   
-  # Prompt for room name
-  promptEl.addClass('active')
-  
-  promptSubmitEl.on('click', (e) ->
-    name = promptInputEl.val()
+  submit = el.find('input[type="submit"]')
+  submit.one('click', (e) ->
+    nameEl = el.find('input[name="create-room"]')
+    name = nameEl.val()
     return if name is ''
     
-    promptInputEl.val('')
-    promptEl.removeClass('active')
-    
-    # Message server to create room
+    nameEl.val('')
+    changeState('in-room', "Joined Room #{name}", true, joinedRoom, [name, socket])
     socket.emit('create-room', name)
   )
-  
+  changeState('create-room', null, false)
 
 
 # This function is only called when the connection to server is successful.
@@ -117,18 +116,38 @@ setSocketCallbacks = (socket) ->
     
     template = ""
     for room, count of e.roomCounts
-      name = if room is '' then 'Default' else room
+      continue if room is ''
+      
+      name = room.slice(1)
       template += """
         <div class='row'>
           <span class='key'>#{name}</span>
           <span class='value'>#{count}</span>
+          <span class='join' data-room="#{name}">join</span>
         </div>
         """
     roomTableEl.html(template)
   )
   
   # Connect UI elements
-  createRoomEl.on('click', {socket: socket}, createRoom)
+  createRoomBtn.on('click', {socket: socket}, createRoom)
+  
+  $(document).on('click', "span.join", (e) ->
+    room = e.target.dataset.room
+    socket.emit 'join-room', room
+  )
+  
+  socket.on('set-room-attendence', (attendees) ->
+    el = stateElems['in-room'].find('.attendees')
+    template = ""
+    for attendee in attendees
+      template += "<li class='attendee'>#{attendee}</li>"
+    el.html(template)
+  )
+  
+  socket.on('joined-room', (room) ->
+    changeState('in-room', "Joined Room #{room}", true, joinedRoom, [room, socket])
+  )
   
   # socket.on('requestPeerId', (sessionId) ->
   #   console.log 'requestPeerId'
@@ -145,52 +164,50 @@ setSocketCallbacks = (socket) ->
   
 
 createSocketConnection = ->
-  socket = io.connect('http://localhost')
+  socket = io.connect()
   
   # Listen for status update from server
-  socket.on('status', (e) ->
-    if e.status is true
-      setSocketCallbacks(socket)
-      
-      # Update status
-      statusEl.text("Socket Connected")
-      
-      # Update app state
-      stateElems.removeClass('active')
-      stateCreateView.addClass('active')
+  socket.on('status', (id) ->
+    setSocketCallbacks(socket)
+    changeState('create-join', "Socket Connected")
+    $("p.socket-id").text(id)
   )
 
 # Set context variables
-createRoomEl = null
-statusEl = null
-
-stateElems = null
-stateInitialEl = null
-stateCreateView = null
+createRoomBtn = null
 roomTableEl = null
-promptEl = null
-promptInputEl = null
-promptSubmitEl = null
+
+stateElems = {}
+statusEl = null
 
 
 DOMReady = ->
+  window.removeEventListener('DOMContentLoaded', DOMReady, false)
   
-  # Get DOM elements
-  stateElems = $("article")
-  stateInitialEl = $("article[data-state='initial']")
-  stateCreateView = $("article[data-state='create-view']")
+  stateElems['all'] = $("article")
+  states = stateElems['all'].map( (i, d) -> return d.dataset.state )
   
-  createRoomEl = $("button[name='create-room']")
+  for state in states
+    stateElems[state] = $("article[data-state='#{state}']")
   statusEl = $("p.status")
-  roomTableEl = stateCreateView.find("div.table")
   
-  promptEl = $("div.prompt")
-  promptInputEl = $("input[name='create-room']")
-  promptSubmitEl = $("input[name='create-room-submit']")
+  # Get UI elements
+  # TODO: Stashing these like so is not scalable, find better solution.
+  createRoomBtn = stateElems['create-join'].find("button[name='create-room']")
+  roomTableEl = stateElems['create-join'].find('div.table')
   
   # First create a connection with the socket server.
   # This will permit users to see who else is participating.
   createSocketConnection()
+
+
+# Utility functions
+changeState = (state, status = null, hideOthers = true, callback, args) ->
+  stateElems['all'].removeClass('active') if hideOthers
+  statusEl.text(status) if status
+  $("article[data-state='#{state}']").addClass('active')
+  
+  callback.apply(null, args) if callback?
 
 
 window.addEventListener('DOMContentLoaded', DOMReady, false)
