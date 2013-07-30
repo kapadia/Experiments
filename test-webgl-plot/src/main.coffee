@@ -15,7 +15,7 @@ vertexShaderSrc = """
   uniform mat4 uPMatrix;
   
   void main(void) {
-      gl_PointSize = 1.0;
+      gl_PointSize = 1.25;
       gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
   }
 """
@@ -27,7 +27,12 @@ gl = null
 program = null
 mvMatrix = null
 pMatrix = null
+rotationMatrix = null
 plotBuffer = null
+
+drag = false
+xOldOffset = null
+yOldOffset = null
 
 onDragOver = (e) ->
   e.stopPropagation()
@@ -45,11 +50,52 @@ onDrop = (e) ->
   new astro.FITS(f, (fits) ->
     table = fits.getDataUnit()
     table.rows;
+    console.log table.columns
     
     table.getRows(0, table.rows, (rows) ->
       scatter(rows)
     )
   )
+
+toRadians = (deg) ->
+    return deg * 0.017453292519943295
+
+_setupMouseControls = ->
+  
+  
+  @canvas.onmousedown = (e) =>
+    drag = true
+    xOldOffset = e.clientX
+    yOldOffset = e.clientY
+
+  @canvas.onmouseup = (e) =>
+    drag = false
+
+  @canvas.onmousemove = (e) =>
+    return unless drag
+
+    x = e.clientX
+    y = e.clientY
+
+    deltaX = x - xOldOffset
+    deltaY = y - yOldOffset
+
+    rotationMatrix = mat4.create()
+    mat4.identity(rotationMatrix)
+    mat4.rotateY(rotationMatrix, rotationMatrix, @toRadians(deltaX / 4))
+    mat4.rotateX(rotationMatrix, rotationMatrix, @toRadians(deltaY / 4))
+    mat4.multiply(@rotationMatrix, rotationMatrix, @rotationMatrix)
+
+    xOldOffset = x
+    yOldOffset = y
+
+    draw()
+
+  @canvas.onmouseout = (e) =>
+    drag = false
+
+  @canvas.onmouseover = (e) =>
+    drag = false
 
 
 scatter = (data) ->
@@ -109,6 +155,8 @@ domReady = ->
   
   # Create new canvas for WebGL instance
   canvas = document.querySelector('canvas.plot')
+  canvas.width = 600
+  canvas.height = 400
   gl = canvas.getContext('webgl') or canvas.getContext('experimental-webgl')
   
   gl.viewportWidth = canvas.width
@@ -140,8 +188,10 @@ domReady = ->
   
   mvMatrix = mat4.create()
   pMatrix = mat4.create()
+  rotationMatrix = mat4.create()
   
   mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix)
+  mat4.identity(rotationMatrix)
   mat4.identity(mvMatrix)
   gl.uniformMatrix4fv(program.pMatrixUniform, false, pMatrix)
   gl.uniformMatrix4fv(program.mvMatrixUniform, false, mvMatrix)
