@@ -105,10 +105,10 @@ scatter = (data) ->
   nVertices = data.length
   vertices = new Float32Array(2 * nVertices)
   
-  key1 = 'wavelength'
-  key2 = 'flux'
-  # key1 = 'XFOCAL'
-  # key2 = 'YFOCAL'
+  # key1 = 'wavelength'
+  # key2 = 'flux'
+  key1 = 'RACEN'
+  key2 = 'DECCEN'
   
   # Get the minimum and maximum for each column
   i = data.length
@@ -159,9 +159,6 @@ domReady = ->
   canvas.height = 400
   gl = canvas.getContext('webgl') or canvas.getContext('experimental-webgl')
   
-  gl.viewportWidth = canvas.width
-  gl.viewportHeight = canvas.height
-  
   # Set up shaders
   vertexShader = gl.createShader(gl.VERTEX_SHADER)
   fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
@@ -190,13 +187,13 @@ domReady = ->
   pMatrix = mat4.create()
   rotationMatrix = mat4.create()
   
-  mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix)
+  mat4.perspective(45, canvas.width / canvas.height, 0.1, 100.0, pMatrix)
   mat4.identity(rotationMatrix)
   mat4.identity(mvMatrix)
   gl.uniformMatrix4fv(program.pMatrixUniform, false, pMatrix)
   gl.uniformMatrix4fv(program.mvMatrixUniform, false, mvMatrix)
   
-  gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight)
+  gl.viewport(0, 0, canvas.width, canvas.height)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   
   plotBuffer = gl.createBuffer()

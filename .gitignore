@@ -7,3 +7,8 @@ node_modules/
 test-sdss-cutouts/FITS/*
 *.tab
 *.tmp
+test-leaflet-tiles/floor8tiles/
+test-leaflet-tiles/tiles/
+*.log
+*.fits.gz
+*.gz

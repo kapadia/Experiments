@@ -95,8 +95,8 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, plotBuffer);
     nVertices = data.length;
     vertices = new Float32Array(2 * nVertices);
-    key1 = 'wavelength';
-    key2 = 'flux';
+    key1 = 'RACEN';
+    key2 = 'DECCEN';
     i = data.length;
     min1 = max1 = data[i - 1][key1];
     min2 = max2 = data[i - 1][key2];
@@ -144,8 +144,6 @@
     canvas.width = 600;
     canvas.height = 400;
     gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    gl.viewportWidth = canvas.width;
-    gl.viewportHeight = canvas.height;
     vertexShader = gl.createShader(gl.VERTEX_SHADER);
     fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(vertexShader, vertexShaderSrc);
@@ -164,12 +162,12 @@
     mvMatrix = mat4.create();
     pMatrix = mat4.create();
     rotationMatrix = mat4.create();
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+    mat4.perspective(45, canvas.width / canvas.height, 0.1, 100.0, pMatrix);
     mat4.identity(rotationMatrix);
     mat4.identity(mvMatrix);
     gl.uniformMatrix4fv(program.pMatrixUniform, false, pMatrix);
     gl.uniformMatrix4fv(program.mvMatrixUniform, false, mvMatrix);
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     return plotBuffer = gl.createBuffer();
   };

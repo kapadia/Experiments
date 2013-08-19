@@ -1,0 +1,4 @@
+html,body{width:100%;height:100%;margin:0;padding:0;}
+html .viewer,body .viewer{width:600px;height:auto;}
+html .viewer canvas,body .viewer canvas{width:600px;height:421px}
+html .progress,body .progress{width:0;height:3px;background-color:#f00;transition:all 600ms cubic-bezier(.77,0,.175,1)}
